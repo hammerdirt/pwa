@@ -217,7 +217,7 @@ class ReadArticles extends Component {
                     </div>
                 </ArticleMenu>
                 <ArticleModal pose={this.state.modalState ? 'open':'closed'} className="articleModal">
-                <div className="articleModalGroup">
+                <div className="articleModalGroup" style={{width:"100%", marginLeft:0}}>
                     {
                         this.state.showThisArticle.length > 0 ?( this.state.showThisArticle.map(obj => {
                             return (
