@@ -272,7 +272,7 @@ class CreateArticle extends Component {
     // Object { ok: true, status: 200 }
 
     render(){
-        // console.log(this.state.serverReply)
+        console.log(this.state.serverReply)
         return (
             <div className="createArticleWrapper">
                 <div className="managementWrapper">

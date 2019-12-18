@@ -132,15 +132,6 @@ class ReadArticles extends Component {
         }
         let response = await saveToServer("POST",a_payload, CREATE_COMMENT, this.props.token)
         console.log(response.status)
-
-        // const requestResponse = response.status
-
-        // console.log(a_payload)
-        // const aDay = new Date()
-        // console.log(aDay)
-        // console.log(aDay.toISOString())
-        // const the_time_stamp = aDay.toISOString()
-        // console.log(the_time_stamp)
     }
 
     render(){
