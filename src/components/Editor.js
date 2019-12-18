@@ -10,7 +10,7 @@ import 'tinymce/plugins/link'
 import 'tinymce/plugins/autolink'
 import 'tinymce/plugins/advlist'
 import 'tinymce/plugins/imagetools'
-import 'tinymce/plugins/emoticons'
+import 'tinymce/plugins/code'
 import 'tinymce/plugins/contextmenu'
 import 'tinymce/skins/ui/oxide-dark/skin.min.css'
 import 'tinymce/skins/ui/oxide-dark/content.min.css'
@@ -27,9 +27,9 @@ class OurEditor extends Component{
     componentDidMount(){
     tinymce.init({
         selector: `#${this.props.id}`,
-        plugins: ["searchreplace", "contextmenu", "autolink", "code", "image", "link", "codesample", "table","advlist", "lists", "wordcount", "imagetools","emoticons"],
-        menubar: 'file edit view insert format tools table help',
-        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | emoticons | image link codesample',
+        plugins: ["autolink", "code", "image", "link", "codesample", "table","advlist", "lists", "imagetools"],
+        menubar: 'file edit view insert format tools table help formats',
+        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | image link codesample',
         // quickbars_selection_toolbar: 'bold italic link | quicklink h2 h3 | blockquote quickimage quicktable',
         // noneditable_noneditable_class: "mceNonEditable",
         // toolbar_drawer: 'sliding',
@@ -74,7 +74,7 @@ class OurEditor extends Component{
             // { title: 'Align center', format: 'aligncenter' },
             // { title: 'Align right', format: 'alignright' },
             { title: 'Align full', format: 'alignfull' },
-            // { title: 'Bold text', inline: 'strong' },
+            { title: 'Bold text', inline: 'strong' },
             // { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
             { title: 'Article header', block: 'h2', styles: { color: '#0c2461', fontFamily:'sans-serif'}},
             { title: 'Section header', block: 'h3', styles: { color: '#1e3799', fontFamily:'"Trebucht MS", sans-serif' }},
