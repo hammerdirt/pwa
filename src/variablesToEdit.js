@@ -145,6 +145,9 @@ export const ARTICLE_CHOICES = [
     'Python',
     'Quantitative analysis',
     'R',
+    'Git',
+    'React',
+    'Node'
 ]
 export const SkilsExperience = [{
     name: 'Technology',
