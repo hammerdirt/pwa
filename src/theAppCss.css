@@ -862,14 +862,14 @@ img{
     /*background-color: #fff;*/
     flex:1 0 50%;
     /*min-width: 340px;*/
-    width:40vh;
-    align-self: center;
+    /*width:40vh;*/
+    /*align-self: center;*/
     box-sizing: border-box;
     overflow: hidden;
     display:flex;
     flex-flow:column nowrap;
-    align-items:flex-start;
-    min-width: 320px;
+    align-items:center;
+    min-width: 360px;
     /*border-bottom:thin solid var(--baseColor)*/
 }
 
@@ -945,9 +945,9 @@ img{
 .articleCardSummary{
     width:100%;
     font-size: 1rem;
-    overflow: hidden;
+    /*overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
     padding:2px;
     flex: 1 0 100%
 }

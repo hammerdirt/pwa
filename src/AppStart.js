@@ -11,7 +11,7 @@ import { Beach_Data, Beach_Data_Version} from './dataBaseVariables'
 import {TOKEN_AUTH,VERIFY_TOKEN, ARE_WE_ONLINE} from './apiUrls'
 // import {saveToServer} from './jWTheaders'
 
-import {} from './helperMethods'
+// import {} from './helperMethods'
 class AppStart extends Component{
     constructor(props){
         super(props)
@@ -309,7 +309,7 @@ class AppStart extends Component{
                     serverUp={this.state.serverUp}
 
                 />
-                <ModalPose pose={this.state.checkAuth ? 'open':'closed'} className="aModalBackground  a-row100 contCenter">
+                <ModalPose pose={this.state.checkAuth ? 'open':'closed'} className="aModalBackground  a-row100 jCenter aCenter">
                     <div>
                     <div className="logInModal">
                         <form className="logInForm" onSubmit={this.authLogin}>

@@ -7,7 +7,7 @@ export const postHeaders = (theToken) => {
     const authHeader = {"Authorization":`JWT ${theJWT}`}
     const appHeader = {"Content-Type": "application/json"}
     const headers = {...authHeader, ...appHeader}
-    console.log(headers)
+    // console.log(headers)
     return headers
 
 }
@@ -29,8 +29,10 @@ export const saveToServer = async (putOrPost,jsonData, url, theToken) =>{
         const headers = postHeaders(theToken)
         const makeRequest = makePostRequest(putOrPost,url, headers, serverPayLoad)
         the_response = await makeRequest.then(response => {return {ok:response.ok, status:response.status}})
+        console.log(the_response)
     }else{
         the_response = {ok:"There is an application error", status:"Not sent"}
+        console.log(the_response)
     }
         return the_response
 }

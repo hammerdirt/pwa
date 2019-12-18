@@ -73,7 +73,7 @@ class OurEditor extends Component{
             // { title: 'Align left', format: 'alignleft' },
             // { title: 'Align center', format: 'aligncenter' },
             // { title: 'Align right', format: 'alignright' },
-            // { title: 'Align full', format: 'alignfull' },
+            { title: 'Align full', format: 'alignfull' },
             // { title: 'Bold text', inline: 'strong' },
             // { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
             { title: 'Article header', block: 'h2', styles: { color: '#0c2461', fontFamily:'sans-serif'}},
