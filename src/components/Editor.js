@@ -11,10 +11,11 @@ import 'tinymce/plugins/autolink'
 import 'tinymce/plugins/advlist'
 import 'tinymce/plugins/imagetools'
 import 'tinymce/plugins/code'
-import 'tinymce/plugins/contextmenu'
-import 'tinymce/skins/ui/oxide-dark/skin.min.css'
-import 'tinymce/skins/ui/oxide-dark/content.min.css'
-
+import Prism from "prismjs"
+import 'prismjs/themes/prism.css'
+// import 'tinymce/skins/content/default/content.min.css';
+import 'tinymce/skins/ui/oxide-dark/skin.min.css';
+Prism.highlightAll()
 class OurEditor extends Component{
     constructor(props){
         super(props)
@@ -25,21 +26,15 @@ class OurEditor extends Component{
         }
     }
     componentDidMount(){
+
     tinymce.init({
         selector: `#${this.props.id}`,
         plugins: ["autolink", "code", "image", "link", "codesample", "table","advlist", "lists", "imagetools"],
-        menubar: 'file edit view insert format tools table help formats',
-        toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | image link codesample',
-        // quickbars_selection_toolbar: 'bold italic link | quicklink h2 h3 | blockquote quickimage quicktable',
-        // noneditable_noneditable_class: "mceNonEditable",
-        // toolbar_drawer: 'sliding',
+        menubar: 'file edit view insert format tools table help ',
+        toolbar:'undo redo | bold italic underline strikethrough | fontselect fontsizeselect styleselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | removeformat| image | link | codesample ',
         contextmenu: "link image",
         height:"600",
-        // image_advtab: true,
-      //     content_css: [
-      //   '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-      //   '//www.tiny.cloud/css/codepen.min.css'
-      // ],
+        skin: false,
         content_style: '.left { text-align: left; }' +
         'img.left { float: left; }' +
         'table.left { float: left; }' +
@@ -66,23 +61,16 @@ class OurEditor extends Component{
             italic: { inline: 'span', classes: 'italic' },
             underline: { inline: 'span', classes: 'underline', exact: true },
             strikethrough: { inline: 'del' },
-            customformat: { inline: 'span', styles: { color: '#00ff00', fontSize: '20px' }, attributes: { title: 'My custom format'} , classes: 'example1'}
         },
         style_formats: [
-            // { title: 'Custom format', format: 'customformat' },
-            // { title: 'Align left', format: 'alignleft' },
-            // { title: 'Align center', format: 'aligncenter' },
-            // { title: 'Align right', format: 'alignright' },
-            { title: 'Align full', format: 'alignfull' },
+            { title: 'Article header', block: 'h2', styles: { color: '#0c2461', fontFamily:'"Trebuchet MS", sans-serif'}},
+            { title: 'Section header', block: 'h3', styles: { color: '#1e3799', fontFamily:'"Trebuchet MS", sans-serif' }},
+            { title: 'Sub section header', block: 'h4', styles: { color: '#4a69bd', fontFamily:'"Trebuchet MS", sans-serif'}},
+            { title: 'Danger', block: 'h6', styles: { color: '#b71540', fontFamily:'"Trebuchet MS", sans-serif'}},
+            {title: 'Article paragraph', block:'p', styles:{color:'#000000', fontFamily:'serif'}},
+            { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
             { title: 'Bold text', inline: 'strong' },
-            // { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
-            { title: 'Article header', block: 'h2', styles: { color: '#0c2461', fontFamily:'sans-serif'}},
-            { title: 'Section header', block: 'h3', styles: { color: '#1e3799', fontFamily:'"Trebucht MS", sans-serif' }},
-            { title: 'Sub section header', block: 'h4', styles: { color: '#4a69bd', fontFamily:'sans-serif'}},
-            { title: 'Important', block: 'h5', styles: { color: '#0c2461', fontFamily:'sans-serif'}},
-            { title: 'Danger', block: 'h6', styles: { color: '#b71540', fontFamily:'sans-serif'}},
             { title: 'Badge', inline: 'span', styles: { display: 'inline-block', border: '1px solid #079992', 'border-radius': '5px', padding: '2px 5px', margin: '0 2px', color: '#079992' } },
-            { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' },
             { title: 'Image formats' },
             { title: 'Image 50% Left inline', selector: 'img', styles: { 'float': 'left', 'margin': '10px', 'width':'50%'} },
             { title: 'Image 50% Right inline', selector: 'img', styles: { 'float': 'right', 'margin': '10px', 'width':'50%' } },
@@ -91,9 +79,11 @@ class OurEditor extends Component{
         setup: editor => {
             this.setState({ editor });
             editor.on('keyup change', () => {
-              const content = editor.getContent();
-              this.props.onEditorChange(content);
-            });
+              const content = editor.getContent()
+              this.setState({
+                  editorContent:content
+              })
+          });
         },
         image_title: true,
         automatic_uploads: true,
@@ -130,7 +120,9 @@ class OurEditor extends Component{
          // console.log(this.props.drafts)
          tinymce.activeEditor.setContent(this.props.drafts[0].article)
          this.setState({editingDraft:true})
-      }
+     }else if (this.props.save !== prevProps.save && this.props.save){
+         this.props.onEditorChange(this.state.editorContent)
+     }
     }
     componentWillUnmount() {
         tinymce.remove(this.state.editor);
@@ -138,7 +130,7 @@ class OurEditor extends Component{
     render() {
         return (
             <div style={{width:"100%"}}>
-                <textarea id={this.props.id} value={this.props.content}  onEditorChange={this.props.onEditorChange} />
+                <textarea id={this.props.id} value={this.props.content} />
             </div>
         );
     }

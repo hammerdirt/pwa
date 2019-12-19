@@ -7,6 +7,9 @@ import { ARTICLE_CHOICES } from '../variablesToEdit'
 import { Beach_Data, Beach_Data_Version} from '../dataBaseVariables'
 import { openDB } from 'idb/with-async-ittr.js'
 import{ArticleModal, ArticleMenu} from '../posedDivs'
+import Prism from "prismjs"
+import 'prismjs/themes/prism.css'
+Prism.highlightAll()
 
 
 class CreateArticle extends Component {
@@ -26,6 +29,7 @@ class CreateArticle extends Component {
             myArticlesToEdit:false,
             seeMenu:false,
             seeGuide:false,
+            save:false,
         }
         this.retrieveReferenceTitles = this.retrieveReferenceTitles.bind(this)
         this.retrieveData = this.retrieveData.bind(this)
@@ -46,6 +50,7 @@ class CreateArticle extends Component {
     }
     componentDidMount () {
         console.log("mounting article creator")
+        setTimeout(() => Prism.highlightAll(), 0)
         this._isMounted = true
         this._isMounted && this.setState({
             loggedIn:this.props.loggedIn,
@@ -72,7 +77,7 @@ class CreateArticle extends Component {
                 loggedIn:this.props.loggedIn,
                 // tokenChecked:this.props.tokenChecked
             })
-        } else if(this.props.loggedIn && !this.state.myArticlesToEdit){
+        }else if(this.props.loggedIn && !this.state.myArticlesToEdit){
             console.log("this might be causing that")
             const db = openDB(Beach_Data, Beach_Data_Version)
             db.then(stuff => stuff.getAllFromIndex("articleSearchList", "owner", this.props.userData.id ))
@@ -82,7 +87,8 @@ class CreateArticle extends Component {
     articleControls(){
         this.setState({
             seeMenu:!this.state.seeMenu,
-        })
+            save:!this.state.save
+        }, this.setState({save:false}))
     }
     checkTheForm(){
         let {subject, image, summary,article} = this.state
@@ -149,11 +155,11 @@ class CreateArticle extends Component {
                 article:content
             })
         }else{
+            console.log("change doc called")
             this.setState({
                 article:content
             })
         }
-
     }
     async catchServerResponse(data){
         const my_reply = await data
@@ -272,7 +278,8 @@ class CreateArticle extends Component {
     // Object { ok: true, status: 200 }
 
     render(){
-        console.log(this.state.serverReply)
+        // console.log(this.state.serverReply)
+        // console.log(this.state.article)
         return (
             <div className="createArticleWrapper">
                 <div className="managementWrapper">
@@ -320,7 +327,7 @@ class CreateArticle extends Component {
 
                     </div>
                     <div className="formSection formSectionRow" >
-                        <OurEditor id={`theEditor`} clearEditor={this.state.clearEditor} drafts={this.state.useThisDraft} onEditorChange={content => this.onChangeDoc(content)}/>
+                        <OurEditor id={`theEditor`} save={this.state.save} clearEditor={this.state.clearEditor} drafts={this.state.useThisDraft} onEditorChange={this.onChangeDoc}/>
                     </div>
                 </form>
                 <ArticleMenu pose={this.state.seeMenu ? 'open':'closed'} className="surveyModal">
@@ -384,7 +391,7 @@ class CreateArticle extends Component {
                             </div>
                             <div style={{marginBottom:"1vh"}}>
                             {
-                                this.state.serverReply ? this.state.serverReply.status === 200 ? <h5> Saved to server </h5>:<h4>There was an error, try resending</h4>:<div>Article not saved yet</div>
+                                this.state.serverReply ? this.state.serverReply.status === 200 || this.state.serverReply === 201 ? <h5> Saved to server </h5>:<h4>There was an error, try resending</h4>:<div>Article not saved yet</div>
                             }
                             </div>
                             <div style={{marginBottom:"1vh"}}>
