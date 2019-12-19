@@ -278,7 +278,7 @@ class CreateArticle extends Component {
     // Object { ok: true, status: 200 }
 
     render(){
-        // console.log(this.state.serverReply)
+        console.log(this.state.serverReply)
         // console.log(this.state.article)
         return (
             <div className="createArticleWrapper">
@@ -391,7 +391,12 @@ class CreateArticle extends Component {
                             </div>
                             <div style={{marginBottom:"1vh"}}>
                             {
-                                this.state.serverReply ? this.state.serverReply.status === 200 || this.state.serverReply === 201 ? <h5> Saved to server </h5>:<h4>There was an error, try resending</h4>:<div>Article not saved yet</div>
+                                this.state.serverReply ? this.state.serverReply.status === 200 || this.state.serverReply.status === 201 ? <h5> Saved to server </h5>
+                                :this.state.serverReply.status === 401 ? <h4>Your login token expired -- not saved -- login again</h4>
+                                :this.state.serverReply.status === 400 ? <div>You must check the article out of existing articles to edit. Reload data and checkout article.</div>
+                                :this.state.serverReply.status !== 400 || this.state.serverReply.status !== 401 || this.state.serverReply.status !== 200 || this.state.serverReply.status !== 201 ?
+                                <div>There was an error, that has nothing to do with your login or your article. --not saved, sorry about that.</div>
+                                :<div>I have no idea why your article was not saved. Try saving to local, sorry about that.</div>:null
                             }
                             </div>
                             <div style={{marginBottom:"1vh"}}>
