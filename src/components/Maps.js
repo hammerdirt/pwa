@@ -37,15 +37,19 @@ class LitterMap extends PureComponent {
         let theRequested = []
         let beachState = {}
         anObject.forEach(obj => {
+            console.log("edge test ---useKeys in the object forEach loop")
             theRequested.push(obj.requested);
             beachState[obj.requested] = obj.beaches;
         });
         let usedThese = []
         for(var i = 0; i < anObject.length; i++){
+            console.log("edge test ---useKeys in the object for loop")
             let useThese = theRequested.filter(location => location !== anObject[i].requested)
             if(useThese.length > 0){
+                console.log("edge test ---useKeys useThese > 0")
                 let these = useThese.filter(aName => !usedThese.includes(aName))
                 for(let j=0; j < these.length; j++){
+                    console.log("edge test ---useKeys in these for loop")
                     let compareAgainst = anObject.filter(obj => obj.requested === these[j])
                     let anIntersection = intersectionX(new Set(anObject[i].beaches), new Set(compareAgainst[0].beaches))
                     if(anIntersection){
@@ -63,7 +67,9 @@ class LitterMap extends PureComponent {
 
         }
         let useTheseMarkers = []
+        console.log("edge test --- making useTheseMarkers")
         anObject.forEach(obj => useTheseMarkers.push({requested:obj.requested, color:obj.color, beaches:beachState[obj.requested]}))
+        console.log("edge test --- returning useTheseMarkers")
         return useTheseMarkers
     }
     getSelectedBeaches(){
@@ -77,13 +83,17 @@ class LitterMap extends PureComponent {
     noRepeats = () => {
         const makeMarkers = this.getSelectedBeaches()
         let theMarkers = this.useKeys(makeMarkers)
+        console.log("edge test --- returning theMarkers")
         return theMarkers
     }
     makeMapMarkers(){
         let theLocations = this.noRepeats()
         let myMarkers = []
+        console.log("edge test --making map markers")
         theLocations.forEach(location => {
+            console.log("edge test -- in theLocation for each loop")
             location.beaches.forEach(beach => {
+                console.log("edge test ---makeMapMarkers location.beaches forEach loop")
                 let beachData = this.props.mapData.filter(obj => obj.slug === beach)
                 let newColor = location.color.replace(/[\d\.]+\)$/g, '0.5)')
                 let markerData = [
@@ -103,13 +113,16 @@ class LitterMap extends PureComponent {
         console.log(" Map bounds called ")
         const mapMarkers = this.makeMapMarkers()
         if (mapMarkers.length > 1) {
+            console.log("edge test --- calling makeMapBoundsArray")
             let bounds = makeBoundsArray(mapMarkers)
             this.setState({mapBounds:bounds})
             return
         }else if (mapMarkers.length === 1){
+            console.log("edge test --- calling singlePointBoundsArray")
             let bounds = singlePointBounds(mapMarkers)
             this.setState({mapBounds:bounds})
         }else {
+            console.log("edge test --- setting singlePointBoundsArray")
             let bounds = singlePointBounds([["Montreux", "Le Pierrier", "46.43972700", "6.88896800", "rgba(183, 21, 64,0.5)"]])
             this.setState({mapBounds:bounds})
         }
