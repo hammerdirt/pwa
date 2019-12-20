@@ -75,9 +75,10 @@ class ReadArticles extends Component {
     }
     showThisArticle = a_title => e => {
         e.preventDefault()
-        console.log("showing an article")
+        console.log("Edge test -- showing this article ")
+        console.log(this.state.selectedArticles)
         const theArticle = this.state.selectedArticles.filter(obj => obj.title === a_title)
-        this._isMounted && this.setState({
+        this.setState({
             showThisArticle:theArticle,
             modalState:true,
 

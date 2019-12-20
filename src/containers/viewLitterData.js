@@ -79,6 +79,7 @@ class ViewLitterData extends PureComponent {
         })
     }
     openDBGetByKey = async (storeName,term) => {
+        console.log("Edge test -- calling openDb at view litter data")
         const db = await openDB(Beach_Data, Beach_Data_Version)
         const store = db.transaction(storeName).objectStore(storeName);
         const value = store.get(term)
@@ -109,6 +110,7 @@ class ViewLitterData extends PureComponent {
         e.preventDefault()
         console.log("set search by called")
         let mySearchBy = e.target.name
+        console.log("calling indexedDB")
         let searchMe = await this.openDBGetByKey('beachCategories',mySearchBy)
         this.setState({
             searchBy:mySearchBy,
