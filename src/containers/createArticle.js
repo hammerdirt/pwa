@@ -47,6 +47,8 @@ class CreateArticle extends Component {
         this.seeGuide = this.seeGuide.bind(this)
         this.checkTheForm = this.checkTheForm.bind(this)
         this.catchServerResponse = this.catchServerResponse.bind(this)
+        this.dbReply = React.createRef()
+        this.transActionState = this.transActionState.bind(this)
     }
     componentDidMount () {
         console.log("mounting article creator")
@@ -54,7 +56,6 @@ class CreateArticle extends Component {
         this._isMounted = true
         this._isMounted && this.setState({
             loggedIn:this.props.loggedIn,
-            // tokenChecked:this.props.tokenChecked
             })
         this._isMounted && this.retrieveReferenceTitles()
         const areThereDrafts = this.retrieveData("draftArticles")
@@ -64,7 +65,6 @@ class CreateArticle extends Component {
             db.then(stuff => stuff.getAllFromIndex("articleSearchList", "owner", this.props.userData.id ))
                 .then(data => this.setState({myArticlesToEdit:data}))
         }
-
     }
     componentWillUnmount(){
         console.log("unmounting article creator")
@@ -198,18 +198,44 @@ class CreateArticle extends Component {
             postPutArticle(theParameters, this.catchServerResponse)
         }
     }
-    putDataToIndexedDB = (data) => {
-        const draftArticles = "draftArticles"
-        const db = openDB(Beach_Data, Beach_Data_Version)
-        db.then(function(db) {
-            var tx = db.transaction(draftArticles, 'readwrite');
-            var store = tx.objectStore(draftArticles);
-            var item = data
-            store.put(item);
-            return tx.complete;
-            }).then(function() {
-                console.log('added item to the store !')
+    transActionState(a_state){
+        if(a_state){
+            this.setState({
+                dbReply:"Saved to local db"
             })
+        }else{
+            this.setState({
+                dbReply:"There was an error -- data not saved"
+            })
+        }
+    }
+    async putDataToIndexedDB(data){
+        const transActionState = (a_state) => {
+            console.log(a_state)
+            if(a_state){
+                this.setState({
+                    dbReply:"Saved to local db"
+                })
+            }else{
+                this.setState({
+                    dbReply:"There was an error -- data not saved"
+                })
+            }
+
+        }
+        const dbRequest = indexedDB.open(Beach_Data, Beach_Data_Version)
+        dbRequest.onsuccess = function(event){
+            const db = dbRequest.result
+            const tx = db.transaction("draftArticles", 'readwrite')
+            const a_store = tx.objectStore("draftArticles")
+            a_store.put(data)
+            tx.addEventListener('error', () => {
+                transActionState(false)
+            })
+            tx.addEventListener('complete', () => {
+                transActionState(true)
+            })
+        }
     }
     retrieveData = async (storeName) => {
         const db = await openDB(Beach_Data, Beach_Data_Version)
@@ -275,11 +301,8 @@ class CreateArticle extends Component {
             pushToApp:!this.state.pushToApp,
         })
     }
-    // Object { ok: true, status: 200 }
-
     render(){
         console.log(this.state.serverReply)
-        // console.log(this.state.article)
         return (
             <div className="createArticleWrapper">
                 <div className="managementWrapper">
@@ -397,6 +420,9 @@ class CreateArticle extends Component {
                                 :this.state.serverReply.status !== 400 || this.state.serverReply.status !== 401 || this.state.serverReply.status !== 200 || this.state.serverReply.status !== 201 ?
                                 <div>There was an error, that has nothing to do with your login or your article. --not saved, sorry about that.</div>
                                 :<div>I have no idea why your article was not saved. Try saving to local, sorry about that.</div>:null
+                            }
+                            {
+                                this.state.dbReply ? <div>{this.state.dbReply}</div>:null
                             }
                             </div>
                             <div style={{marginBottom:"1vh"}}>
