@@ -24,6 +24,35 @@ export const retrieveData = async (storeName,Beach_Data, Beach_Data_Version, ope
     }
 
 }
+export function useIndexedCursorGet(Beach_Data, Beach_Data_Version, storeName, eventListener){
+    const dbRequest = window.indexedDB.open(Beach_Data, Beach_Data_Version)
+    dbRequest.onsuccess = function(event){
+        console.log("The db is open")
+        const db = dbRequest.result
+        const tx = db.transaction(storeName, 'readonly')
+        const codes = []
+        tx.objectStore(storeName).openCursor().onsuccess = function(event){
+            var cursor = event.target.result
+            if(cursor){
+                // console.log(cursor)
+                codes.push(cursor.value)
+                cursor.continue();
+            }else{
+
+            }
+        }
+        tx.objectStore(storeName).openCursor().onerror = function(event){
+            console.log(event)
+        }
+        tx.addEventListener('error', () => {
+            eventListener(false, "not good")
+        })
+        tx.addEventListener('complete', () => {
+            eventListener(storeName, codes)
+        })
+    }
+
+}
 export const postDataToStore = async (storeName,Beach_Data, Beach_Data_Version, openDB, someData )=>{
     console.log("posting data to store")
     const db = await openDB(Beach_Data, Beach_Data_Version)

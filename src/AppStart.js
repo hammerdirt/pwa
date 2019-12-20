@@ -6,7 +6,7 @@ import {Sect, ModalPose} from  './posedDivs'
 import {PoseGroup} from 'react-pose'
 import {theComponents} from './variablesToEdit'
 import NetWorkDatabase from './components/NetWorkDatabase'
-import {checkForDb, retrieveData} from './helperMethods'
+import {checkForDb, retrieveData, useIndexedCursorGet} from './helperMethods'
 import { Beach_Data, Beach_Data_Version} from './dataBaseVariables'
 import {TOKEN_AUTH,VERIFY_TOKEN, ARE_WE_ONLINE} from './apiUrls'
 // import {saveToServer} from './jWTheaders'
@@ -253,16 +253,35 @@ class AppStart extends Component{
         e.preventDefault()
         this.setState({open:!this.state.open})
     }
+
     makeState = async () => {
         if(!this.state.makeState){
             console.log("!!!! Make State Got Called !!!!")
             const codes = await retrieveData("codes",Beach_Data, Beach_Data_Version, openDB)
             const mapData = await retrieveData("beaches", Beach_Data, Beach_Data_Version, openDB)
-            this.setState({
-                mlwCodes:codes,
-                mapData:mapData,
-                makeState:true,
-            })
+            if(codes[0] || mapData[0]){
+                console.log("This browser is uptodate")
+                this.setState({
+                    mlwCodes:codes,
+                    mapData:mapData,
+                    makeState:true,
+                })
+            }else{
+                console.log("This browser is not up to date")
+                const transActionState = (a_name, a_state) => {
+                    if(a_name){
+                        console.log("Adding data to state")
+                        this.setState({
+                            [a_name]:a_state,
+                            makeState:true,
+                        })
+                    }else{
+                        console.log(a_state)
+                    }
+                }
+                useIndexedCursorGet(Beach_Data, Beach_Data_Version,"codes", transActionState)
+                useIndexedCursorGet(Beach_Data, Beach_Data_Version,"beaches", transActionState)
+            }
         }
     }
     render(){

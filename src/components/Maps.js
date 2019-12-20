@@ -94,7 +94,9 @@ class LitterMap extends PureComponent {
             console.log("edge test -- in theLocation for each loop")
             location.beaches.forEach(beach => {
                 console.log("edge test ---makeMapMarkers location.beaches forEach loop")
+                console.log(this.props.mapData[0])
                 let beachData = this.props.mapData.filter(obj => obj.slug === beach)
+                console.log(beachData)
                 let newColor = location.color.replace(/[\d\.]+\)$/g, '0.5)')
                 let markerData = [
                     location.requested,
@@ -106,6 +108,7 @@ class LitterMap extends PureComponent {
                 myMarkers.push(markerData)
             })
         })
+        console.log("myMarkers")
         this.setState({mapMarkers:myMarkers})
         return myMarkers
     }
