@@ -29,7 +29,13 @@ export const ARTICLE_UPDATE = `${prefix}article-update/`
 export const CREATE_ARTICLE = `${prefix}create-article/`
 export const CREATE_COMMENT =  `${prefix}article-comment/create/`
 export const COMMENT_LIST = `${prefix}article-comment/`
-// export const LIST_OF_REFERENCES = `${prefix}list-of-references/titles/`
 //links
 export const EU_RIVERINE = "https://mcc.jrc.ec.europa.eu/documents/201703034325.pdf"
 export const EU_BEACH_MONITOR = "https://mcc.jrc.ec.europa.eu/documents/201702074014.pdf"
+//Repos
+export const QUANT_STACK = "https://github.com/hammerdirt/quant-stack"
+export const BEACH_LITTER = "https://github.com/hammerdirt/Lake_Geneva_Env"
+export const APP_API_REFACTOR = "https://github.com/hammerdirt/app_refactor"
+export const API_II = "https://github.com/hammerdirt/hammerdirt_api"
+export const API_I = "https://github.com/hammerdirt/module_one"
+export const MICRO_BIO = "https://github.com/hammerdirt/water-quality-2016-2017"

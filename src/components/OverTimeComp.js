@@ -13,7 +13,6 @@ class OverTimeComp extends PureComponent{
         }
         this.timeSeriesChart = this.timeSeriesChart.bind(this)
         this.getSelectedBeaches = this.getSelectedBeaches.bind(this)
-        // this.intersectionX = this.intersectionX.bind(this)
         this.noRepeats = this.noRepeats.bind(this)
         this.useKeys = this.useKeys.bind(this)
     }
@@ -82,15 +81,11 @@ class OverTimeComp extends PureComponent{
         myMarkers.forEach(obj => {
             let the_data = []
             let newColor
-            // console.log(obj)
             obj.beaches.forEach(aBeach => {
                 let theseResults = data.filter(thisBeach => thisBeach.location === aBeach)
-                // console.log(theseResults)
-                // newColor = obj.color
                 newColor = obj.color.replace(/[\d\.]+\)$/g, '0.8)')
                 if(theseResults[0]){
                     theseResults[0].results.forEach(result => {
-                        // console.log(result)
                         let newResult = {name:aBeach, x: Date.parse(result[0]), y:result[1]}
                         the_data.push(newResult)
 

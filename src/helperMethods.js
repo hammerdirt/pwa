@@ -24,7 +24,7 @@ export const retrieveData = async (storeName,Beach_Data, Beach_Data_Version, ope
     }
 
 }
-export function useIndexedCursorGet(Beach_Data, Beach_Data_Version, storeName, eventListener){
+export function useIndexedCursorGet(Beach_Data, Beach_Data_Version, storeName, stateName, eventListener){
     const dbRequest = window.indexedDB.open(Beach_Data, Beach_Data_Version)
     dbRequest.onsuccess = function(event){
         console.log("The db is open")
@@ -48,7 +48,7 @@ export function useIndexedCursorGet(Beach_Data, Beach_Data_Version, storeName, e
             eventListener(false, "not good")
         })
         tx.addEventListener('complete', () => {
-            eventListener(storeName, codes)
+            eventListener(stateName, codes)
         })
     }
 

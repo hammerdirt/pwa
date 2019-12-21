@@ -9,9 +9,7 @@ import NetWorkDatabase from './components/NetWorkDatabase'
 import {checkForDb, retrieveData, useIndexedCursorGet} from './helperMethods'
 import { Beach_Data, Beach_Data_Version} from './dataBaseVariables'
 import {TOKEN_AUTH,VERIFY_TOKEN, ARE_WE_ONLINE} from './apiUrls'
-// import {saveToServer} from './jWTheaders'
 
-// import {} from './helperMethods'
 class AppStart extends Component{
     constructor(props){
         super(props)
@@ -156,14 +154,21 @@ class AppStart extends Component{
             checkAuth:!this.state.checkAuth
         })
     }
-    async showTheUser(username){
-        var request = await indexedDB.open(Beach_Data)
-        request.onsuccess = async (event) => {
-            var db = await event.target.result
-            var objectStore = await db.transaction("users").objectStore("users")
-            const value = await objectStore.get(username)
-            value.onsuccess = (event) => {
-                this.setState({userDataToShow:value.result})
+    showTheUser(username){
+        var request = indexedDB.open(Beach_Data)
+        const transActionState = (a_state) => {
+            this.setState({
+                userDataToShow:a_state
+            })
+
+        }
+        request.onsuccess = function(event){
+            var db = event.target.result
+            var tx = db.transaction('users', 'readonly')
+            const value = tx.objectStore('users').get(username)
+            value.onsuccess = function(event){
+                transActionState(value.result)
+
             }
         }
     }
@@ -253,35 +258,22 @@ class AppStart extends Component{
         e.preventDefault()
         this.setState({open:!this.state.open})
     }
-
     makeState = async () => {
         if(!this.state.makeState){
             console.log("!!!! Make State Got Called !!!!")
-            const codes = await retrieveData("codes",Beach_Data, Beach_Data_Version, openDB)
-            const mapData = await retrieveData("beaches", Beach_Data, Beach_Data_Version, openDB)
-            if(codes[0] || mapData[0]){
-                console.log("This browser is uptodate")
-                this.setState({
-                    mlwCodes:codes,
-                    mapData:mapData,
-                    makeState:true,
-                })
-            }else{
-                console.log("This browser is not up to date")
-                const transActionState = (a_name, a_state) => {
-                    if(a_name){
-                        console.log("Adding data to state")
-                        this.setState({
-                            [a_name]:a_state,
-                            makeState:true,
-                        })
-                    }else{
-                        console.log(a_state)
-                    }
+            const transActionState = (a_name, a_state) => {
+                if(a_name){
+                    console.log("Adding data to state")
+                    this.setState({
+                        [a_name]:a_state,
+                        makeState:true,
+                    })
+                }else{
+                    console.log(a_state)
                 }
-                useIndexedCursorGet(Beach_Data, Beach_Data_Version,"codes", transActionState)
-                useIndexedCursorGet(Beach_Data, Beach_Data_Version,"beaches", transActionState)
             }
+            useIndexedCursorGet(Beach_Data, Beach_Data_Version,"codes", "mlwCodes", transActionState)
+            useIndexedCursorGet(Beach_Data, Beach_Data_Version,"beaches", "mapData", transActionState)
         }
     }
     render(){

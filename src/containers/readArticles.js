@@ -4,12 +4,15 @@ import { ARTICLE_LIST, CREATE_COMMENT } from '../apiUrls'
 import {ArticleModal, Item,  ArticleMenu} from '../posedDivs'
 import { PoseGroup } from 'react-pose'
 import Loader from '../components/SpinComp'
-import {retrieveData} from '../helperMethods'
+import {retrieveData, useIndexedCursorGet} from '../helperMethods'
 import { openDB } from 'idb/with-async-ittr.js'
 import { Beach_Data, Beach_Data_Version} from '../dataBaseVariables'
 import CommentDisplay from '../components/CommentDisplay'
 import {SUBJECT, DISPOSITION} from '../variablesToEdit'
+import OurReader from '../components/Reader'
 import {saveToServer} from '../jWTheaders'
+import Prism from 'prismjs'
+import '../prism.css'
 
 
 class ReadArticles extends Component {
@@ -33,22 +36,19 @@ class ReadArticles extends Component {
         this.checkTheForm = this.checkTheForm.bind(this)
         this.commentFormOnClick =this.commentFormOnClick.bind(this)
         this.commentSubmit = this.commentSubmit.bind(this)
+        this.getTheUserData = this.getTheUserData.bind(this)
     }
     async componentDidMount() {
         this._isMounted = true
         console.log("mounting articles")
         let getArticles = fetch(ARTICLE_LIST)
-        getArticles.then(res => res.json()).then(json => this._isMounted && this.setState({ articles:json, sortOrder:json}))
-        const userKey = await retrieveData('users',Beach_Data, Beach_Data_Version, openDB)
+        getArticles.then(res => res.json()).then(json => this.setState({ articles:json, sortOrder:json},console.log("articles are here")))
         this._isMounted && this.setState({
-            userList:userKey,
-            idName:userKey.map(obj => Object.assign({},obj.id, obj.username)),
             loggedIn:this.props.loggedIn,
             subs:Object.keys(SUBJECT).map(value => SUBJECT[value]),
             disps:Object.keys(DISPOSITION).map(value => DISPOSITION[value])
-        }
-        )
-
+        })
+        this.getTheUserData()
     }
     componentDidUpdate(prevProps) {
         if (this.props.loggedIn !== prevProps.loggedIn|| this.props.serverUp !== prevProps.serverUp) {
@@ -58,8 +58,6 @@ class ReadArticles extends Component {
             })
         }
     }
-
-
     componentWillUnmount(){
         console.log("unmounting articles")
         this._isMounted = false
@@ -71,7 +69,20 @@ class ReadArticles extends Component {
             selectedArticles:this.state.articles.filter(obj => obj.subject === e.target.value),
             seeSubjects:!this.state.seeSubjects
         })
-
+    }
+    getTheUserData(){
+        const transActionState = (a_name, a_state) => {
+            if(a_name){
+                console.log("Adding data to state read articles")
+                this.setState({
+                    [a_name]:a_state,
+                    idName:a_state.map(obj => Object.assign({},obj.id, obj.username)),
+                })
+            }else{
+                console.log(a_state)
+            }
+        }
+        useIndexedCursorGet(Beach_Data, Beach_Data_Version, 'users', 'userList', transActionState)
     }
     showThisArticle = a_title => e => {
         e.preventDefault()
@@ -122,7 +133,6 @@ class ReadArticles extends Component {
         this.setState({
             [e.currentTarget.name]:e.currentTarget.value
         })
-
     }
     async commentSubmit(){
         let a_payload = {
@@ -134,8 +144,8 @@ class ReadArticles extends Component {
         let response = await saveToServer("POST",a_payload, CREATE_COMMENT, this.props.token)
         console.log(response.status)
     }
-
     render(){
+        // Prism.highlightAll()
         const articleCard = (obj) =>{
             return(
                 <div className="articleCardWrapper" onClick={this.showThisArticle(obj.title)} value={obj.title} key={`${obj.title}${obj.subject}`}>
@@ -166,19 +176,13 @@ class ReadArticles extends Component {
             let useTheseCommentsX = this.useTheseComments()
             if(useTheseCommentsX){
                 useTheseCommentsX.forEach(obj =>{
-                    // console.log(obj)
                     let aName = getTheUserName(this.state.userList, obj.owner)
                     obj.username = aName.username
-                    // console.log( aName)
-
                 })
             }
             return useTheseCommentsX
-
         }
         const useTheseCommentsX = addUserNames()
-        // console.log(this.state)
-
         return (
             <div className="wMin360 a-row100 jStart rel topLeft whtBackGround zOne">
                 <div className="a-row100P">
@@ -214,6 +218,8 @@ class ReadArticles extends Component {
                         this.state.showThisArticle.length > 0 ?( this.state.showThisArticle.map(obj => {
                             return (
                                 <div key={obj.title} className="articleModal">
+
+
                                     <div className="articleWrapper">
                                         <div className="articleBlockTitle">
                                             <div className="articleTitle">
@@ -243,7 +249,7 @@ class ReadArticles extends Component {
                                             <img src={obj.image} alt={obj.title} style={{width:"100%", height:"auto"}}/>
                                         </div>
                                         <div className="articleArticle">
-                                            <div dangerouslySetInnerHTML={{__html:obj.article}} />
+                                            <OurReader id={`theEditor`} content={obj.article} />
                                         </div>
                                             {
                                                 this.props.loggedIn ?

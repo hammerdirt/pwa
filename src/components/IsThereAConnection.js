@@ -77,7 +77,6 @@ class IsThereAConnection extends Component{
         return [message]
     }
     render(){
-        // console.log(this.props.serverUp)
         return(
             <>
                 <div key="status-one" className="statusWrapper" >

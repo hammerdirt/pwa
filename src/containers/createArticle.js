@@ -7,9 +7,9 @@ import { ARTICLE_CHOICES } from '../variablesToEdit'
 import { Beach_Data, Beach_Data_Version} from '../dataBaseVariables'
 import { openDB } from 'idb/with-async-ittr.js'
 import{ArticleModal, ArticleMenu} from '../posedDivs'
-import Prism from "prismjs"
-import 'prismjs/themes/prism.css'
-Prism.highlightAll()
+// import Prism from "prismjs"
+// import 'prismjs/themes/prism.css'
+// Prism.highlightAll()
 
 
 class CreateArticle extends Component {
@@ -52,7 +52,6 @@ class CreateArticle extends Component {
     }
     componentDidMount () {
         console.log("mounting article creator")
-        setTimeout(() => Prism.highlightAll(), 0)
         this._isMounted = true
         this._isMounted && this.setState({
             loggedIn:this.props.loggedIn,
@@ -75,7 +74,6 @@ class CreateArticle extends Component {
         if (this.props.loggedIn !== prevProps.loggedIn && this._isMounted) {
             this.setState({
                 loggedIn:this.props.loggedIn,
-                // tokenChecked:this.props.tokenChecked
             })
         }else if(this.props.loggedIn && !this.state.myArticlesToEdit){
             console.log("this might be causing that")
@@ -128,7 +126,6 @@ class CreateArticle extends Component {
             this.setState({
                 getDrafts:!this.state.getDrafts,
                 seeMenu:!this.state.seeMenu,
-
             })
         }
         this.setState({
@@ -170,7 +167,6 @@ class CreateArticle extends Component {
     postIt(e){
         e.preventDefault()
         const {titles, draft, pushToApp, loggedIn, ...theArticle} = this.state
-
         const theParameters = {
             slug:this.state.slug,
             token:this.props.token,
@@ -302,7 +298,7 @@ class CreateArticle extends Component {
         })
     }
     render(){
-        console.log(this.state.serverReply)
+        // console.log(this.state.serverReply)
         return (
             <div className="createArticleWrapper">
                 <div className="managementWrapper">

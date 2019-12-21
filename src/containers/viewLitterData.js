@@ -5,6 +5,7 @@ import { openDB } from 'idb/with-async-ittr.js'
 import Loader from '../components/SpinComp'
 import {SearchMenuOpen, SummaryPose, ModalPose} from '../posedDivs'
 import {locationColors, storeKey} from '../variablesToEdit'
+import {useIndexedCursorGet} from '../helperMethods'
 const LitterMap = lazy(()=>import('../components/Maps'))
 const TopTenCompX = lazy(() => import('../components/TopTenCompX'))
 const VisSummaryData = lazy(() => import('../components/VisSummaryData'))
@@ -48,7 +49,7 @@ class ViewLitterData extends PureComponent {
         this.openSummary = this.openSummary.bind(this)
         this.someMenuFunction = this.someMenuFunction.bind(this)
         this.aDoublesFunction = this.aDoublesFunction.bind(this)
-        this.selectedRow = React.createRef()
+        // this.selectedRow = React.createRef()
     }
     componentDidMount () {
         this._isMounted = true
@@ -58,7 +59,6 @@ class ViewLitterData extends PureComponent {
             windowHeight:this.props.windowHeight,
         })
         this.setInitial()
-
     }
     componentDidUpdate(prevProps) {
         if (this.props.windowWidth !== prevProps.windowWidth) {
@@ -97,14 +97,23 @@ class ViewLitterData extends PureComponent {
         })
     }
     async setInitial(){
+        const transActionState = (a_name, a_state) => {
+            if(a_name){
+                console.log("Adding data to state")
+                this.setState({
+                    [a_name]:a_state,
+                    makeState:true,
+                })
+            }else{
+                console.log(a_state)
+            }
+        }
         let searchThis = await this.openDBGetByKey('beachCategories',this.state.searchBy)
-        let theBeaches = await this.getAllFromStore('dailyTotals')
-
         this.setState({
             [this.state.searchBy]:searchThis.results,
             portrait:this.props.windowHeight > this.props.windowWidth ? true:false,
-            theBeaches:theBeaches
-        })
+
+        },useIndexedCursorGet(Beach_Data, Beach_Data_Version,'dailyTotals', "theBeaches", transActionState))
     }
     setSearchBy = async (e) => {
         e.preventDefault()
@@ -195,7 +204,6 @@ class ViewLitterData extends PureComponent {
         let filteredTerms =filterTerms.filter(place =>place.toLowerCase().toLowerCase().startsWith(searchTerm, 0))
         this.setState({filteredValues:filteredTerms})
     }
-
     searchForAValue(e){
         e.preventDefault()
         this.setState({searchTerm:e.target.value})
@@ -345,11 +353,11 @@ class ViewLitterData extends PureComponent {
                 </SearchMenuOpen>
             </div>
 
-                {/*<div className="mapContainer">*/}
-                    <Suspense fallback={<Loader />}>
-                        <LitterMap mapData={this.props.mapData} selected={this.state.selected} locationBeaches={this.state.beaches}/>
-                    </Suspense>
-                {/*</div>*/}
+
+                <Suspense fallback={<Loader />}>
+                    <LitterMap mapData={this.props.mapData} selected={this.state.selected} locationBeaches={this.state.beaches}/>
+                </Suspense>
+
                 <div ref={this.selectedRow} className="selectedRow">
                     {
                         this.state.selected ? allocateContainers(this.state.selected):<Loader />

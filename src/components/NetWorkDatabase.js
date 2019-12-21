@@ -15,7 +15,6 @@ class NetWorkDatabase extends Component {
         this.changeStatus = this.changeStatus.bind(this)
     }
     componentDidMount () {
-        // this.props.connectionVerify()
         this.setState({
             dbIs:this.props.dbIs,
             serverUp:this.props.serverUp
@@ -31,12 +30,10 @@ class NetWorkDatabase extends Component {
         }
     }
     componentWillUnmount() {
-        // this.props.connectionVerify()
         console.log("unmounted");
     }
     changeStatus(e){
         e.preventDefault()
-        // this.props.connectionVerify()
         if(this.state.status){
             this.setState({
                 status: !this.state.status,
@@ -51,10 +48,6 @@ class NetWorkDatabase extends Component {
     }
 
     render(){
-        // console.log(this.props.serverUp)
-        // console.log(this.props.connectionVerify)
-
-
         const statusButton = () => {
             if(this.state.status){
                 return (

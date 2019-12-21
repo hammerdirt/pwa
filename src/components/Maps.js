@@ -17,7 +17,6 @@ class LitterMap extends PureComponent {
         this.noRepeats = this.noRepeats.bind(this)
         this.makeMapMarkers = this.makeMapMarkers.bind(this)
         this.useKeys = this.useKeys.bind(this)
-        // this.intersectionX = this.intersectionX.bind(this)
         this.getSelectedBeaches = this.getSelectedBeaches.bind(this)
         this.mapBounds = this.mapBounds.bind(this)
     }
@@ -94,9 +93,8 @@ class LitterMap extends PureComponent {
             console.log("edge test -- in theLocation for each loop")
             location.beaches.forEach(beach => {
                 console.log("edge test ---makeMapMarkers location.beaches forEach loop")
-                console.log(this.props.mapData[0])
                 let beachData = this.props.mapData.filter(obj => obj.slug === beach)
-                console.log(beachData)
+                console.log("edge test ---makeMapMarkers got the beach data")
                 let newColor = location.color.replace(/[\d\.]+\)$/g, '0.5)')
                 let markerData = [
                     location.requested,
@@ -108,7 +106,7 @@ class LitterMap extends PureComponent {
                 myMarkers.push(markerData)
             })
         })
-        console.log("myMarkers")
+        console.log("myMarkers are done")
         this.setState({mapMarkers:myMarkers})
         return myMarkers
     }
@@ -132,6 +130,7 @@ class LitterMap extends PureComponent {
     }
     render(){
         console.log("rendering maps")
+        // console.log(this.props.mapData)
         const myMapBounds = ()=> {
             if (this.state.mapBounds.length === 0){
                 let myMapBounds = singlePointBounds([["Montreux", "Le Pierrier", "46.43972700", "6.88896800", "rgba(183, 21, 64,0.5)"]])

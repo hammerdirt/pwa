@@ -12,10 +12,9 @@ import 'tinymce/plugins/advlist'
 import 'tinymce/plugins/imagetools'
 import 'tinymce/plugins/code'
 import Prism from "prismjs"
-import 'prismjs/themes/prism.css'
-// import 'tinymce/skins/content/default/content.min.css';
+import '../prism.css'
 import 'tinymce/skins/ui/oxide-dark/skin.min.css';
-Prism.highlightAll()
+
 class OurEditor extends Component{
     constructor(props){
         super(props)
@@ -111,18 +110,18 @@ class OurEditor extends Component{
     })
     }
     componentDidUpdate(prevProps) {
-     if (this.props.clearEditor && this.state.editingDraft && !this.props.drafts){
-         console.log("not editing draft now")
-         tinymce.activeEditor.setContent("")
-         this.setState({editingDraft:false})
-      }else if (this.props.drafts && !this.state.editingDraft){
-         console.log("editing draft now")
-         // console.log(this.props.drafts)
-         tinymce.activeEditor.setContent(this.props.drafts[0].article)
-         this.setState({editingDraft:true})
-     }else if (this.props.save !== prevProps.save && this.props.save){
-         this.props.onEditorChange(this.state.editorContent)
-     }
+        if (this.props.clearEditor && this.state.editingDraft && !this.props.drafts){
+             console.log("not editing draft now")
+             tinymce.activeEditor.setContent("")
+             this.setState({editingDraft:false})
+        }else if (this.props.drafts && !this.state.editingDraft){
+            console.log("editing draft now")
+            tinymce.activeEditor.setContent(this.props.drafts[0].article)
+            this.setState({editingDraft:true})
+        }else if (this.props.save !== prevProps.save && this.props.save){
+            this.props.onEditorChange(this.state.editorContent)
+        }
+
     }
     componentWillUnmount() {
         tinymce.remove(this.state.editor);

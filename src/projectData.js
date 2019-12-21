@@ -1,3 +1,12 @@
+import {
+    QUANT_STACK,
+    BEACH_LITTER,
+    APP_API_REFACTOR,
+    API_II,
+    API_I,
+    MICRO_BIO
+} from './apiUrls'
+
 export const ProjectData = [{
         name:"Progressive web app",
         description:"Develop a JavaScript based application that allows data input and is functional offline on a variety of mobile devices.",
@@ -15,7 +24,7 @@ export const ProjectData = [{
         hdRole:"Python and JavaScript devs.",
         results:"An API that allows clients to use the data from hammeridirt projects in an automated environment. Simplified logic that facilitates the addition or modification of components.",
         partners:[{name:"None"}],
-        repo:"https://github.com/hammerdirt/pwa"
+        repo:API_II
     },{
         name:"Swiss Litter Report",
         description:"Collaboration with STOPPP and WWF Switzerland to establish a national database of shoreline litter density on Swiss water ways.",
@@ -41,7 +50,7 @@ export const ProjectData = [{
         hdRole:"Template design, CSS, HTML and JavaScript devs.",
         results:"A dyanmic webpage using templates and conditional logic that allowed users to search data by a variety of criteria.",
         partners:[{name:"None"}],
-        repo:"https://github.com/hammerdirt/module_one",
+        repo:API_I,
     },{
         name:"Initial API",
         description:"Creation of an API backen for web site using Django.",
@@ -50,7 +59,7 @@ export const ProjectData = [{
         hdRole:"Python developers.",
         results:"A REST API that enabled users to search data and display aggregated results.",
         partners:[{name:"None"}],
-        repo:"https://github.com/hammerdirt/module_one",
+        repo:API_I,
     },{
         name:"Microbiology II",
         description:"Collaboration with local biohackers to sample water quality before during and after large public events.",
@@ -59,7 +68,7 @@ export const ProjectData = [{
         hdRole:"Collect water samples, laboratory assistants, data analisys",
         results:"69 samples were collected at the site of the Montreux Jazz Festival. Culture results showed an increase in coliform bacteria during the Jazz Festival",
         partners:[{name:"Hackquarium", url:"http://wiki.hackuarium.ch/w/Micro_to_Macro_Water_Pollution"}],
-        repo:"https://github.com/hammerdirt/water-quality-2016-2017"
+        repo:MICRO_BIO
 
     },{
         name:"Creek Week",
@@ -87,7 +96,7 @@ export const ProjectData = [{
         hdRole:"Collect water samples, laboratory assistants, data analisys",
         results:"72 samples were collected at the site of the Montreux Jazz Festival. Culture results showed an increase in coliform bacteria during the Jazz Festival",
         partners:[{name:"Hackquarium", url:"http://wiki.hackuarium.ch/w/Micro_to_Macro_Water_Pollution"}],
-        repo:"https://github.com/hammerdirt/water-quality-2016-2017"
+        repo:MICRO_BIO
 
     },{
         name:"Cordova Creek study",
@@ -127,7 +136,7 @@ export const currentProjects = [{
     hdRole:"Python developers of API micro-services.",
     results:"Expected: The ability to apply various forms of regression analysis to incoming data streams.",
     partners:[{name:"None"}],
-    repo:"https://github.com/hammerdirt/",
+    repo:QUANT_STACK,
 },{
     name:"EPFL Guest lecturer",
     description:"Graduate students field experience quantifying solid waste in the environment.",
@@ -163,7 +172,7 @@ export const currentProjects = [{
     hdRole:"Collect data, manage database, develop visualisations and provide information to govt officials on request free of charge.",
     results:"See the dashboard section",
     partners:[{name:"None"}],
-    repo:"https://github.com/hammerdirt/",
+    repo:BEACH_LITTER,
 },{
     name:"App and API refactor",
     description:"The ongoing work of optimizing the code base.",
@@ -172,7 +181,7 @@ export const currentProjects = [{
     hdRole:"Python, JavaScript, ReacJS, CSS, HTML developers",
     results:"Ongoing performance and feature enhancements, some of which are large scale enough to make it to this section.",
     partners:[{name:"None"}],
-    repo:"https://github.com/hammerdirt/",
+    repo:APP_API_REFACTOR,
 },
 
 ]

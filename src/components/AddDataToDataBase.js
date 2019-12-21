@@ -99,10 +99,10 @@ class GetNewData extends Component {
                 }else {
                     what_i_want = {color:"#38ada9", data:this.state.lastUpdate}
                 }
-            }else if(this.state.lastUpdate === "No data"){
+            }else if(this.state.lastUpdate){
                 what_i_want = {color:"#eb2f06", data:this.state.lastUpdate}
             }else{
-                what_i_want = {color:"#38ada9", data:this.state.lastUpdate}
+                what_i_want = {color:"#eb2f06", data:"No data -- first visit?"}
             }
          return what_i_want
         }
@@ -111,7 +111,7 @@ class GetNewData extends Component {
             <>
                 {
                     my_trouble ?
-                        <div key={`GettingNewData`} className="indicatorButton jStart truncate " onClick={this.getAndAddData} >
+                        <div key={`GettingNewData`} className="indicatorButton jStart truncate whiteText" onClick={this.getAndAddData} >
                             <div className="indicator " style={{backgroundColor:my_trouble.color}}></div>
                             {my_trouble.data}
                         </div>:<div style={{width:"10%", height:"10vh"}}>Nothing</div>

@@ -37,7 +37,7 @@ export const theComponents = (props) =>{
             userData={props.userDataToShow}
             userName={props.userName}
             />,
-        "ReadArticles":<ReadArticles key="ReadArticles" loggedIn={props.loggedIn} serverUp={props.serverUp} comments={props.comments} token={props.token}userData={props.userDataToShow}/>,
+        "ReadArticles":<ReadArticles key="ReadArticles" loggedIn={props.loggedIn} serverUp={props.serverUp} comments={props.comments} token={props.token} userData={props.userDataToShow}/>,
         "ViewLitterData":<ViewLitterData
             key="ViewLitterData"
             mlwCodes={props.mlwCodes}

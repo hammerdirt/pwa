@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import '../theAppCss.css'
-import {retrieveData} from '../helperMethods'
+import {useIndexedCursorGet} from '../helperMethods'
 import { openDB } from 'idb/with-async-ittr.js'
 import { Beach_Data, Beach_Data_Version} from '../dataBaseVariables'
 import Loader from '../components/SpinComp'
-// import AboutSkills from '../components/AboutSkills'
 import SkillsTable from '../components/SkillsTable'
 import UserCard from '../components/UserCard'
 import {SkilsExperience } from '../variablesToEdit'
@@ -14,14 +13,25 @@ class AboutUs extends Component {
         super(props)
         this.state = {
         }
+        this.getTheUsers = this.getTheUsers.bind(this)
     }
-    async componentDidMount() {
+    componentDidMount() {
         console.log("mounting the AboutUs")
         this._isMounted = true
-        const mydata = await retrieveData('users',Beach_Data, Beach_Data_Version, openDB )
-        this.setState({
-            dataToUse:mydata
-        })
+        this.getTheUsers()
+    }
+    getTheUsers(){
+        const transActionState = (a_name, a_state) => {
+            if(a_name){
+                console.log("Adding data to state about us")
+                this.setState({
+                    [a_name]:a_state,
+                })
+            }else{
+                console.log("indexed db failed")
+            }
+        }
+        useIndexedCursorGet(Beach_Data, Beach_Data_Version, 'users', 'dataToUse', transActionState)
     }
     componentDidUpdate(prevProps) {
         if (this.props.selected !== prevProps.selected) {
@@ -58,7 +68,6 @@ class AboutUs extends Component {
                     <span className="emphasis">Collaboration</span> is understanding that nobody can be an expert at everything. We depend on the input of scientists from a variety of fields
                     to ensure that our analysis is appropriate and in context of the problems presented to us. You can depend on us to ensure that observational data is presented in an
                     objective and transparent manner.
-
                 </p>
             </div>
             <div className="a-column50 wMin360 pad1">
@@ -80,8 +89,6 @@ class AboutUs extends Component {
                     Contact us roger [at] hammerdirt.ch
                 </h5>
             </div>
-
-
         </div>
       );
   }
