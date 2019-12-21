@@ -12,7 +12,7 @@ import {SUBJECT, DISPOSITION} from '../variablesToEdit'
 import OurReader from '../components/Reader'
 import {saveToServer} from '../jWTheaders'
 import Prism from 'prismjs'
-import '../prism.css'
+// import '../prism.css'
 
 
 class ReadArticles extends Component {
