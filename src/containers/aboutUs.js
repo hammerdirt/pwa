@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../theAppCss.css'
 import {useIndexedCursorGet} from '../helperMethods'
-import { openDB } from 'idb/with-async-ittr.js'
 import { Beach_Data, Beach_Data_Version} from '../dataBaseVariables'
 import Loader from '../components/SpinComp'
 import SkillsTable from '../components/SkillsTable'

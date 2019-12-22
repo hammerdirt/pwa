@@ -48,12 +48,13 @@ h1, h2, h3, h4, h5, h6 {
     color:var(--headingColor);
     margin-top: 0;
 }
-p, ul{
+p, ul, ol{
     color:var(--paraColor);
 }
-ul, li {
+ul, li, ol {
 font-family: 'Trirong', serif;
 font-size: calc(17px + (19 - 16) * ((100vw - 400px) / (1600 - 400)));
+color:var(--paraColor);
 }
 Body {
     font-size: calc(14px + (19 - 14) * ((100vw - 400px) / (1600 - 400)));

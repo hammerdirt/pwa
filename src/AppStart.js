@@ -1,12 +1,11 @@
 import React,  {Component}from 'react'
-import { openDB } from 'idb';
 import './theAppCss.css'
 import {TheMainMenu} from './components/MainMenu'
 import {Sect, ModalPose} from  './posedDivs'
 import {PoseGroup} from 'react-pose'
 import {theComponents} from './variablesToEdit'
 import NetWorkDatabase from './components/NetWorkDatabase'
-import {checkForDb, retrieveData, useIndexedCursorGet} from './helperMethods'
+import {checkForDb, useIndexedCursorGet} from './helperMethods'
 import { Beach_Data, Beach_Data_Version} from './dataBaseVariables'
 import {TOKEN_AUTH,VERIFY_TOKEN, ARE_WE_ONLINE} from './apiUrls'
 

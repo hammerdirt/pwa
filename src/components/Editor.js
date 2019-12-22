@@ -11,7 +11,7 @@ import 'tinymce/plugins/advlist'
 import 'tinymce/plugins/imagetools'
 import 'tinymce/plugins/code'
 import Prism from "prismjs"
-import 'tinymce/skins/ui/oxide-dark/skin.min.css';
+import 'tinymce/skins/ui/oxide/skin.min.css';
 import '../theAppCss.css'
 
 class OurEditor extends Component{
@@ -29,33 +29,34 @@ class OurEditor extends Component{
             selector: `#${this.props.id}`,
             plugins: [ "code", "image", "link", "codesample", "table","advlist", "lists", "imagetools"],
             menubar: 'file edit view insert format tools table help ',
-            toolbar:'undo redo | bold italic underline strikethrough | fontselect fontsizeselect styleselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | removeformat| image | link | codesample ',
+            toolbar:'styleselect | bold italic underline strikethrough | removeformat link | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | image  | codesample ',
             contextmenu: "link image",
             height:"600",
             skin: false,
             content_css:['/theAppCss.css', '/prism.css'],
             formats: {
-                alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'left' },
-                aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'center' },
-                alignright: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'right' },
-                alignfull: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'full' },
-                bold: { inline: 'span', styles: { fontWeight: 'bold' }},
+                alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles:{ textAlign: 'left'} },
+                aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', styles:{ textAlign: 'center'} },
+                alignright: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', styles:{ textAlign: 'right'} },
+                alignfull: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', styles: 'justify' },
+                bold: { inline: 'span', styles: { fontWeight: 'bold', color:'#000000' }},
                 italic: { inline: 'span', styles: {fontStyle: 'italic'}},
                 underline: { inline: 'span', styles:{textDecoration:'underline'} },
                 strikethrough: { inline: 'del' },
             },
             style_formats: [
-                { title: 'Article header', block: 'h2'},
-                { title: 'Section header', block: 'h3'},
-                { title: 'Sub section header', block: 'h4'},
-                { title:'Important', block:'h5'},
-                { title: 'Danger', block: 'h6', styles: { color: '#b71540'}},
+                { title: 'Title', block: 'h2'},
+                { title: 'Section', block: 'h3'},
+                { title: 'Sub section', block: 'h4'},
+                { title:'Important', block:'h5', styles:{color: '#1e3799'}},
+                { title: 'Danger', block: 'h5', styles: { color: '#ff0000'}},
                 {title: 'Article paragraph', block:'p'},
                 { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                {title: 'Blue text', inline:'span', styles:{color:'#1e3799'}},
                 { title: 'Image formats' },
-                { title: 'Image 50% Left inline', selector: 'img', styles: { 'float': 'left', 'margin': '10px', 'width':'50%'} },
-                { title: 'Image 50% Right inline', selector: 'img', styles: { 'float': 'right', 'margin': '10px', 'width':'50%' } },
-                { title: 'Image 80% Center block', selector: 'img', styles: { 'margin-left': '10px', 'width':'80%' } },
+                { title: '50% Left inline', selector: 'img', styles: { 'float': 'left', 'margin': '10px', 'width':'50%'} },
+                { title: '50% Right inline', selector: 'img', styles: { 'float': 'right', 'margin': '10px', 'width':'50%' } },
+                { title: '80% Center block', selector: 'img', styles: { 'margin-left': '10%', 'width':'80%' } },
             ],
             setup: editor => {
                 this.setState({ editor });
@@ -111,7 +112,7 @@ class OurEditor extends Component{
     render() {
         return (
             <div style={{width:"100%"}}>
-                <textarea id={this.props.id} value={this.props.content} />
+                <div id={this.props.id} value={this.props.content} />
             </div>
         );
     }

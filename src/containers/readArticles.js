@@ -4,15 +4,14 @@ import { ARTICLE_LIST, CREATE_COMMENT } from '../apiUrls'
 import {ArticleModal, Item,  ArticleMenu} from '../posedDivs'
 import { PoseGroup } from 'react-pose'
 import Loader from '../components/SpinComp'
-import {retrieveData, useIndexedCursorGet} from '../helperMethods'
-import { openDB } from 'idb/with-async-ittr.js'
+import {useIndexedCursorGet} from '../helperMethods'
 import { Beach_Data, Beach_Data_Version} from '../dataBaseVariables'
 import CommentDisplay from '../components/CommentDisplay'
 import {SUBJECT, DISPOSITION} from '../variablesToEdit'
 import OurReader from '../components/Reader'
 import {saveToServer} from '../jWTheaders'
 import Prism from 'prismjs'
-// import '../prism.css'
+
 
 
 class ReadArticles extends Component {
@@ -39,6 +38,7 @@ class ReadArticles extends Component {
         this.getTheUserData = this.getTheUserData.bind(this)
     }
     async componentDidMount() {
+        Prism.highlightAll()
         this._isMounted = true
         console.log("mounting articles")
         let getArticles = fetch(ARTICLE_LIST)
@@ -87,7 +87,6 @@ class ReadArticles extends Component {
     showThisArticle = a_title => e => {
         e.preventDefault()
         console.log("Edge test -- showing this article ")
-        console.log(this.state.selectedArticles)
         const theArticle = this.state.selectedArticles.filter(obj => obj.title === a_title)
         this.setState({
             showThisArticle:theArticle,
