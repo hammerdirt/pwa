@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import '../theAppCss.css'
+import '../main-style.css'
 import TimeSeriesChartS from './TimeSeriesChartS'
 import {intersectionX} from '../helperMethods'
 
