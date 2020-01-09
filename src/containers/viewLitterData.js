@@ -199,9 +199,9 @@ class ViewLitterData extends PureComponent {
     }
 
     filterFunction(targetValue){
-        let searchTerm = targetValue
+        let searchTerm = targetValue.toLowerCase()
         let filterTerms = this.state[this.state.searchBy]
-        let filteredTerms =filterTerms.filter(place =>place.toLowerCase().toLowerCase().startsWith(searchTerm, 0))
+        let filteredTerms =filterTerms.filter(place =>place.toLowerCase().startsWith(searchTerm, 0))
         this.setState({filteredValues:filteredTerms})
     }
     searchForAValue(e){
