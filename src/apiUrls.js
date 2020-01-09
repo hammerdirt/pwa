@@ -21,7 +21,7 @@ export const SURVEY_TO_SERVER = `${prefix}surveys/`
 export const DIMS_TO_SERVER =  `${prefix}surveys/dim-data/dim-data-create/`
 export const SURVEY_DIMS = `${prefix}surveys/dim-data/`
 export const WATER_BODY_CODE_TOTAlS = `${prefix}code-totals/water-bodies/`
-export const LATEST_DAILY_TOTALS = `${prefix}surveys/daily-totals/code-totals/latest-daily-totals/`
+export const LATEST_DAILY_TOTALS = `${prefix}surveys/daily-totals/code-totals/daily-totals/`
 // articles and references
 export const ARTICLE_LIST = `${prefix}article-view/`
 export const ARTICLE_SEARCH_TERMS =  `${prefix}article-search/`
