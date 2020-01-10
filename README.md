@@ -1,68 +1,57 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### The hammerdirt! app
 
-## Available Scripts
+#### Purpose
 
-In the project directory, you can run:
+This is a progressive-web-app. Designed as an admin portal and landing page. It is one part of the hammerdirt! infrastructure. 
 
-### `npm start`
+#### Use
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This app is part of the hammerdirt! infrastructure. Authenticated users can log survey results and wirte articles. System admin is not handled through this app.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### The hammerdirt infrastructure:
 
-### `npm test`
+These are the main components of the hammerdirt! infrastructure:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Data storage and distribution through the API:
+  * api url: [https://mwshovel.pythonanywhere.com/](https://mwshovel.pythonanywhere.com/)
+  * repo: [https://github.com/hammerdirt/hammerdirt_api](https://github.com/hammerdirt/hammerdirt_api)
+  * Authenticated members can enter survey data and edit articles
+  * Provides endpoints for client apps
+  * Powered by Django REST
+2. Data entry and management:
+  * url: [https://www.hammerdirt.ch/](https://www.hammerdirt.ch/)
+  * repo: this repo
+  * Has access to POST and PUT endpoints
+  * Includes WYISWYG editor by TinyMCE
+  * Forms for entering survey data and commenting on articles
+  * Built with ReactJS
+3. Data visualisation, communication:
+  * url: [https://www.plagespropres.ch/](https://www.plagespropres.ch/)
+  * repo: [https://github.com/hammerdirt/client_pwa](https://github.com/hammerdirt/client_pwa)
+  * Has access to GET endpoints
+  * Built with ReactJS
+4. Version control and collaboration:
+  * version control : Git
+  * collaboration: GitHub
+  * url:[https://github.com/hammerdirt](https://github.com/hammerdirt) 
 
-### `npm run build`
+### About hammerdirt!
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Hammerdirt! is a non-profit organisation based in Switzerland and dedicated to the collection, analysis and distribution of environmental data.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### About this app
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This app is specifically designed to provide data-entry and text editing capabilities for ongoing environmental surveillance projects. Display and communication happens through the client app.
 
-### `npm run eject`
+1. Manages the services for multiple projects
+2. Provides authentication and access to POST/PUT requests to the API
+3. Houses all documents for all projects. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Contributing 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Log your issues through GitHub in the usual way
+2. If you have a fix submit a pull request 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Joining hammerdirt!
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1. see hammerdirt.ch in the docs tab "members"
