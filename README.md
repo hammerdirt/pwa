@@ -6,7 +6,7 @@ This is a progressive-web-app. Designed as an admin portal and landing page. It 
 
 #### Use
 
-This app is part of the hammerdirt! infrastructure. Authenticated users can log survey results and wirte articles. System admin is not handled through this app.
+This app is part of the hammerdirt! infrastructure. Authenticated users can log survey results and write articles. System admin is not handled through this app.
 
 ### The hammerdirt infrastructure:
 
