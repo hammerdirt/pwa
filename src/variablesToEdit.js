@@ -157,7 +157,7 @@ export const SkilsExperience = [{
         name: 'Python: Django, Django-REST',
         description:"Development of dyanamic web apps and REST API using the Django and Django REST framework."
     }, {
-        name: 'JavaScript, React, Highcharts, Leaflet, Popmotion, Node',
+        name: 'JavaScript, React, Highcharts, Leaflet, FramerMotion, Node, D3',
         description:"Creation of components that manage HTML, CSS and data output for functional dyanmic user interfaces."
     },{
         name:'HTML-CSS',

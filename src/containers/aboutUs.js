@@ -47,8 +47,8 @@ class AboutUs extends Component {
             <div className="a-column50 wMin360 pad1 marginT6vh">
                 <h5>A partner</h5>
                 <p>
-                    Hammerdirt provides the essential services for collecting, analysing and storing data from citizen science projects and field sensors.
-                    Whether you need a dedicated application or analyst support. We have the experience to turn field observations into dynamic data displays
+                    Hammerdirt is an NGO based in Switzerland. We provide the essential services for collecting, analysing and storing data from crowd sourced projects and remote field sensors.
+                    Whether you need a dedicated application, an analyst or a complete team. We have the experience to turn field observations into dynamic data displays
                     for print or web applications.
                 </p>
                 <p>
@@ -61,7 +61,7 @@ class AboutUs extends Component {
                 <h5>Philosophy</h5>
                 <p>
                     Crowd sourced environmental data is the state of the environment as documented by those who experience it. All environmental assessements and policies
-                    should begin with an understanding of the individual experience defined by the observations from the people living in that environment.
+                    should begin with an understanding of the individuals experience defined by the observations from the people living in that environment.
                 </p>
                 <p>
                     <span className="emphasis">Collaboration</span> is understanding that nobody can be an expert at everything. We depend on the input of scientists from a variety of fields
