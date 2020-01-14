@@ -33,6 +33,10 @@ class OurEditor extends Component{
             contextmenu: "link image",
             height:"600",
             skin: false,
+            link_assume_external_targets: true,
+            relative_urls: false,
+            convert_urls: false,
+            remove_script_host : false,
             content_css:['/theAppCss.css', '/prism.css'],
             formats: {
                 alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li', styles:{ textAlign: 'left'} },
