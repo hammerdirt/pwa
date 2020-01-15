@@ -7,14 +7,10 @@ class SkillsTable extends Component{
     constructor(props){
         super(props)
         this.state ={
-
         }
     }
-
-
     componentDidMount(){
         this._isMounted = true
-
     }
     componentWillUnmount(){
         this._isMounted = false
