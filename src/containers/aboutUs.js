@@ -53,7 +53,7 @@ class AboutUs extends Component {
                 </p>
                 <p>
                     We work great with both ends of the value chain. We are not "designers" of user interfaces or communication strategies. However we do use the same tools
-                    as any other developer, thus facilitating communications between working groups. Our time in the field makes us particularly senistive to finding the simplest
+                    as any other developer, thus facilitating communications between working groups. Our time in the field makes us particularly sensitive to finding the simplest
                     solutions to application development and data visualization.
                 </p>
             </div>
