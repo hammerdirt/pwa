@@ -150,6 +150,7 @@ export const ARTICLE_CHOICES = [
     'Node',
     'Dev notes',
     'Survey proposal',
+    'Field notes'
 ]
 export const SkilsExperience = [{
     name: 'Technology',
